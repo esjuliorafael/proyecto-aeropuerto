@@ -14,7 +14,7 @@ from datetime import date, timedelta
 # CONFIGURACIÓN DE PÁGINA
 # ------------------------------------------------------------
 st.set_page_config(
-    page_title="Admin Aeropuerto",
+    page_title="Admin Aeropuerto Julio Rafael",
     page_icon="🛫",
     layout="wide",
     initial_sidebar_state="expanded"
