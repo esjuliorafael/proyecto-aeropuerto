@@ -197,18 +197,21 @@ def triangular(x, a=17, b=28, c=30):
 # ------------------------------------------------------------
 # APLICAR CSS MODERNO v5.1 (Corrección de color de etiquetas)
 # ------------------------------------------------------------
+# ------------------------------------------------------------
+# APLICAR CSS MODERNO v5.2 (Selector de etiquetas más agresivo)
+# ------------------------------------------------------------
 st.markdown("""
     <style>
         /* --- General --- */
         body, .stApp {
-            background-color: #F0F2F6; /* Fondo gris claro */
+            background-color: #F0F2F6;
             color: #333;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
         /* --- Sidebar --- */
         [data-testid="stSidebar"] {
-            background: linear-gradient(160deg, #003366 0%, #001122 100%); /* Azul marino oscuro a casi negro */
+            background: linear-gradient(160deg, #003366 0%, #001122 100%);
             border-right: 0px;
         }
         [data-testid="stSidebar"] h1 {
@@ -216,33 +219,33 @@ st.markdown("""
             padding: 10px 0 10px 10px;
         }
         
-        /* --- Navegación del Sidebar (Radio Buttons) --- */
+        /* --- Navegación del Sidebar --- */
         [data-testid="stSidebar"] [data-testid="stRadio"] > label {
             padding: 14px 20px;
             border-radius: 8px;
             margin: 4px 10px;
             transition: all 0.3s ease;
-            color: #A9B2C0; /* Color de texto no seleccionado (gris-azulado) */
-            border-left: 4px solid transparent; /* Borde izquierdo transparente */
+            color: #A9B2C0;
+            border-left: 4px solid transparent;
         }
         [data-testid="stSidebar"] [data-testid="stRadio"] > label:hover {
             background-color: rgba(255, 255, 255, 0.05);
             color: #FFFFFF;
             border-left: 4px solid rgba(255, 255, 255, 0.2);
         }
-        [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-child {
-            display: none; /* Ocultar el punto de radio original */
-        }
         [data-testid="stSidebar"] [data-testid="stRadio"] div[aria-checked="true"] > label {
-            background-color: rgba(0, 170, 178, 0.1); /* Fondo sutil de acento */
-            color: #FFFFFF !important; /* Texto blanco brillante */
+            background-color: rgba(0, 170, 178, 0.1);
+            color: #FFFFFF !important;
             font-weight: 600;
-            border-left: 4px solid #00AAB2; /* Borde de acento turquesa */
+            border-left: 4px solid #00AAB2;
+        }
+        [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-child {
+            display: none;
         }
 
         /* --- Títulos Principales --- */
         h1, h2 {
-            color: #003366; /* Azul marino oscuro */
+            color: #003366;
             font-weight: 600;
         }
         h3 {
@@ -250,8 +253,14 @@ st.markdown("""
             font-weight: 500;
         }
 
-        /* --- *** NUEVA REGLA PARA ETIQUETAS DE WIDGETS *** --- */
-        [data-testid="stWidgetLabel"] > label {
+        /* --- *** REGLA CORREGIDA Y MÁS AGRESIVA *** --- */
+        /*
+          Esto ataca el problema de dos formas:
+          1. Targetea la etiqueta <label> directamente.
+          2. Targetea cualquier <div> DENTRO de la etiqueta, que a veces es donde Streamlit pone el texto.
+        */
+        [data-testid="stWidgetLabel"] > label,
+        [data-testid="stWidgetLabel"] label div {
             color: #111 !important; /* Forzar color oscuro (casi negro) */
             font-weight: 500 !important; /* Forzar peso de fuente */
         }
@@ -267,7 +276,7 @@ st.markdown("""
         [data-testid="stMetricValue"] {
             font-size: 2.75rem !important;
             font-weight: 700;
-            color: #00AAB2; /* <-- NUEVO COLOR DE ACENTO */
+            color: #00AAB2;
         }
         [data-testid="stMetricLabel"] {
             font-size: 1rem;
@@ -283,13 +292,13 @@ st.markdown("""
             transition: all 0.3s;
         }
         button[data-baseweb="tab"][aria-selected="true"] {
-            color: #003366; /* Azul marino */
+            color: #003366;
             border-bottom: 3px solid #003366;
         }
 
         /* --- Botones --- */
         button[kind="primary"] {
-            background-color: #00AAB2 !important; /* <-- NUEVO COLOR DE ACENTO */
+            background-color: #00AAB2 !important;
             color: white !important;
             border: 0 !important;
             border-radius: 8px !important;
@@ -298,7 +307,7 @@ st.markdown("""
             transition: background-color 0.3s, box-shadow 0.3s !important;
         }
         button[kind="primary"]:hover {
-            background-color: #007A7C !important; /* Versión oscura del acento */
+            background-color: #007A7C !important;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
         }
 
@@ -320,7 +329,7 @@ st.markdown("""
         /* --- Footer --- */
         .footer {
             font-size: 0.8rem;
-            color: #A9B2C0; /* Color suave del sidebar */
+            color: #A9B2C0;
             text-align: center;
             padding: 10px;
         }
