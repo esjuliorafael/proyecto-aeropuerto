@@ -1,7 +1,7 @@
 # ============================================================
-# PROYECTO AEROPUERTO - Panel de Administración v5.1
+# PROYECTO AEROPUERTO - Panel de Administración v5.3
 # ============================================================
-# (Refactorizado por Gemini con Corrección de Etiquetas)
+# (Refactorizado por Gemini con Corrección Final de Etiquetas)
 # ============================================================
 
 import streamlit as st
@@ -38,7 +38,7 @@ AEROPUERTO_COORDS = {
 
 
 # ------------------------------------------------------------
-# BASE DE DATOS (Sin cambios)
+# BASE DE DATOS
 # ------------------------------------------------------------
 def get_connection():
     return sqlite3.connect("aeropuerto.db", check_same_thread=False)
@@ -78,7 +78,7 @@ def init_db():
     conn.close()
 
 # ------------------------------------------------------------
-# FUNCIONES AUXILIARES DE DB (Sin cambios)
+# FUNCIONES AUXILIARES DE DB
 # ------------------------------------------------------------
 def ejecutar_query(query, params=()):
     try:
@@ -105,7 +105,7 @@ def cargar_datos(tabla):
             conn.close()
 
 # ------------------------------------------------------------
-# GENERAR/REINICIAR DATOS (Sin cambios)
+# GENERAR/REINICIAR DATOS
 # ------------------------------------------------------------
 def generar_datos_ejemplo(force_run=False):
     conn = get_connection()
@@ -195,10 +195,7 @@ def triangular(x, a=17, b=28, c=30):
 
 
 # ------------------------------------------------------------
-# APLICAR CSS MODERNO v5.1 (Corrección de color de etiquetas)
-# ------------------------------------------------------------
-# ------------------------------------------------------------
-# APLICAR CSS MODERNO v5.2 (Selector de etiquetas más agresivo)
+# APLICAR CSS MODERNO v5.3 (Corrección final de etiquetas)
 # ------------------------------------------------------------
 st.markdown("""
     <style>
@@ -219,13 +216,13 @@ st.markdown("""
             padding: 10px 0 10px 10px;
         }
         
-        /* --- Navegación del Sidebar --- */
+        /* --- Navegación del Sidebar (MUY Específico) --- */
         [data-testid="stSidebar"] [data-testid="stRadio"] > label {
             padding: 14px 20px;
             border-radius: 8px;
             margin: 4px 10px;
             transition: all 0.3s ease;
-            color: #A9B2C0;
+            color: #A9B2C0; /* Color de texto no seleccionado */
             border-left: 4px solid transparent;
         }
         [data-testid="stSidebar"] [data-testid="stRadio"] > label:hover {
@@ -235,7 +232,7 @@ st.markdown("""
         }
         [data-testid="stSidebar"] [data-testid="stRadio"] div[aria-checked="true"] > label {
             background-color: rgba(0, 170, 178, 0.1);
-            color: #FFFFFF !important;
+            color: #FFFFFF !important; /* Blanco para el sidebar */
             font-weight: 600;
             border-left: 4px solid #00AAB2;
         }
@@ -253,14 +250,12 @@ st.markdown("""
             font-weight: 500;
         }
 
-        /* --- *** REGLA CORREGIDA Y MÁS AGRESIVA *** --- */
-        /*
-          Esto ataca el problema de dos formas:
-          1. Targetea la etiqueta <label> directamente.
-          2. Targetea cualquier <div> DENTRO de la etiqueta, que a veces es donde Streamlit pone el texto.
+        /* --- *** NUEVA REGLA PARA ETIQUETAS DEL CONTENIDO PRINCIPAL *** --- */
+        /* Esto apunta a CUALQUIER <label> dentro del contenedor 
+         principal de la app. Es menos específico que la regla del
+         sidebar, por lo que no debería afectarla.
         */
-        [data-testid="stWidgetLabel"] > label,
-        [data-testid="stWidgetLabel"] label div {
+        [data-testid="stAppViewContainer"] label {
             color: #111 !important; /* Forzar color oscuro (casi negro) */
             font-weight: 500 !important; /* Forzar peso de fuente */
         }
@@ -280,7 +275,7 @@ st.markdown("""
         }
         [data-testid="stMetricLabel"] {
             font-size: 1rem;
-            color: #555;
+            color: #555 !important; /* Asegurar que la etiqueta de métrica se vea */
             font-weight: 500;
         }
 
@@ -365,7 +360,7 @@ opcion = st.sidebar.radio(
 # Footer en Sidebar
 st.sidebar.markdown("---")
 st.sidebar.markdown(
-    '<div class="footer">Panel v5.1<br/>Desarrollado con Streamlit</div>',
+    '<div class="footer">Panel v5.3<br/>Desarrollado con Streamlit</div>',
     unsafe_allow_html=True
 )
 
