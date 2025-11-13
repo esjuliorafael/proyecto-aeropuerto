@@ -1,3 +1,9 @@
+# ============================================================
+# PROYECTO AEROPUERTO - Panel de Administración v5.1
+# ============================================================
+# (Refactorizado por Gemini con Contraste de Inputs Mejorado)
+# ============================================================
+
 import streamlit as st
 import sqlite3
 import pandas as pd
@@ -171,7 +177,7 @@ def reiniciar_base_de_datos():
     st.success("Base de datos reiniciada exitosamente.")
 
 # ------------------------------------------------------------
-# NUEVA FUNCIÓN DE LÓGICA FUZZY (DE Fuzzy.py)
+# FUNCIÓN DE LÓGICA FUZZY (DE Fuzzy.py)
 # ------------------------------------------------------------
 def triangular(x, a=17, b=28, c=30):
     """
@@ -189,7 +195,7 @@ def triangular(x, a=17, b=28, c=30):
 
 
 # ------------------------------------------------------------
-# APLICAR CSS MODERNO v4 (Elegante + Acento Turquesa)
+# APLICAR CSS MODERNO v5.1 (Contraste de Inputs)
 # ------------------------------------------------------------
 st.markdown("""
     <style>
@@ -219,15 +225,10 @@ st.markdown("""
             color: #A9B2C0; /* Color de texto no seleccionado (gris-azulado) */
             border-left: 4px solid transparent; /* Borde izquierdo transparente */
         }
-        /* Hover en item */
         [data-testid="stSidebar"] [data-testid="stRadio"] > label:hover {
             background-color: rgba(255, 255, 255, 0.05);
             color: #FFFFFF;
             border-left: 4px solid rgba(255, 255, 255, 0.2);
-        }
-        /* Item seleccionado */
-        [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-child {
-            display: none; /* Ocultar el punto de radio original */
         }
         [data-testid="stSidebar"] [data-testid="stRadio"] div[aria-checked="true"] > label {
             background-color: rgba(0, 170, 178, 0.1); /* Fondo sutil de acento */
@@ -257,7 +258,7 @@ st.markdown("""
         [data-testid="stMetricValue"] {
             font-size: 2.75rem !important;
             font-weight: 700;
-            color: #00AAB2; /* <-- NUEVO COLOR DE ACENTO */
+            color: #00AAB2; 
         }
         [data-testid="stMetricLabel"] {
             font-size: 1rem;
@@ -279,7 +280,7 @@ st.markdown("""
 
         /* --- Botones --- */
         button[kind="primary"] {
-            background-color: #00AAB2 !important; /* <-- NUEVO COLOR DE ACENTO */
+            background-color: #00AAB2 !important; 
             color: white !important;
             border: 0 !important;
             border-radius: 8px !important;
@@ -307,6 +308,24 @@ st.markdown("""
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
+        /* --- (NUEVO) Etiquetas de Inputs --- */
+        [data-testid="stWidgetLabel"] > label {
+            color: #003366 !important; /* Azul marino oscuro */
+            font-weight: 500 !important;
+            font-size: 0.95rem !important;
+            padding-bottom: 4px !important; /* Pequeño espacio */
+        }
+        
+        /* --- (NUEVO) Cajas de Inputs --- */
+        [data-testid="stTextInput"] div[data-baseweb="input"],
+        [data-testid="stSelectbox"] div[data-baseweb="select"],
+        [data-testid="stNumberInput"] div[data-baseweb="input"],
+        [data-testid="stDateInput"] div[data-baseweb="input"] {
+            background-color: #FFFFFF !important;
+            border-radius: 6px !important;
+            border: 1px solid #BCCCDC !important; /* Borde sutil azul-gris */
+        }
+        
         /* --- Footer --- */
         .footer {
             font-size: 0.8rem;
@@ -346,7 +365,7 @@ opcion = st.sidebar.radio(
 # Footer en Sidebar
 st.sidebar.markdown("---")
 st.sidebar.markdown(
-    '<div class="footer">Panel v5.0<br/>Desarrollado con Streamlit</div>',
+    '<div class="footer">Panel v5.1<br/>Desarrollado con Streamlit</div>',
     unsafe_allow_html=True
 )
 
@@ -473,7 +492,7 @@ elif opcion == "✈️ Gestión de Vuelos":
                     st.experimental_rerun()
 
 # ------------------------------------------------------------
-# SECCIÓN: GESTIÓN DE PASAJEROS (MODIFICADA CON LÓGICA FUZZY)
+# SECCIÓN: GESTIÓN DE PASAJEROS
 # ------------------------------------------------------------
 elif opcion == "👤 Gestión de Pasajeros":
     st.title("👤 Gestión de Pasajeros")
@@ -495,7 +514,6 @@ elif opcion == "👤 Gestión de Pasajeros":
                 ]
             st.dataframe(pasajeros_filtrados, use_container_width=True)
 
-        # --- Sub-Pestaña 1.2: Búsqueda Avanzada (MODIFICADA) ---
         with sub_tab2:
             st.subheader("Filtros Avanzados de Pasajeros")
             
@@ -539,28 +557,22 @@ elif opcion == "👤 Gestión de Pasajeros":
                 (pasajeros_filtrados_av["edad"] >= min_edad) & (pasajeros_filtrados_av["edad"] <= max_edad)
             ]
 
-            # --- INICIO DE MODIFICACIÓN FUZZY ---
-            # Aplicar Lógica Fuzzy si el grupo "Jóvenes" está seleccionado
             if grupo_etario == "Jóvenes (18-30)":
                 st.info(
                     "💡 **Lógica Fuzzy Aplicada:** La columna 'Pertenencia (17-30)' muestra el "
                     "grado de membresía (de 0 a 1) a la función triangular 'Joven Ideal' (Pico en 28 años), "
                     "basado en la función de `Fuzzy.py`."
                 )
-                # Aplicamos la función triangular a la columna 'edad'
                 pasajeros_filtrados_av["Pertenencia (17-30)"] = pasajeros_filtrados_av["edad"].apply(
-                    lambda x: triangular(x) # Usa la función importada
-                ).round(4) # Redondear para mejor visualización
+                    lambda x: triangular(x)
+                ).round(4)
                 
-                # Mover la columna al frente para visibilidad
                 cols = ["Pertenencia (17-30)"] + [col for col in pasajeros_filtrados_av.columns if col != "Pertenencia (17-30)"]
                 pasajeros_filtrados_av = pasajeros_filtrados_av[cols]
-            # --- FIN DE MODIFICACIÓN FUZZY ---
 
             st.subheader("Resultados del Filtro Avanzado")
             
             if not pasajeros_filtrados_av.empty:
-                # Mostrar el DataFrame (ahora con la columna fuzzy si aplica)
                 st.dataframe(pasajeros_filtrados_av, use_container_width=True)
                 
                 st.markdown("---")
