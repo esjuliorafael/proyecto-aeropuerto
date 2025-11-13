@@ -1,7 +1,7 @@
 # ============================================================
 # PROYECTO AEROPUERTO - Panel de Administración v5.1
 # ============================================================
-# (Refactorizado por Gemini con Contraste de Inputs Mejorado)
+# (Refactorizado por Gemini con Corrección de Etiquetas)
 # ============================================================
 
 import streamlit as st
@@ -195,7 +195,7 @@ def triangular(x, a=17, b=28, c=30):
 
 
 # ------------------------------------------------------------
-# APLICAR CSS MODERNO v5.1 (Contraste de Inputs)
+# APLICAR CSS MODERNO v5.1 (Corrección de color de etiquetas)
 # ------------------------------------------------------------
 st.markdown("""
     <style>
@@ -230,6 +230,9 @@ st.markdown("""
             color: #FFFFFF;
             border-left: 4px solid rgba(255, 255, 255, 0.2);
         }
+        [data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-child {
+            display: none; /* Ocultar el punto de radio original */
+        }
         [data-testid="stSidebar"] [data-testid="stRadio"] div[aria-checked="true"] > label {
             background-color: rgba(0, 170, 178, 0.1); /* Fondo sutil de acento */
             color: #FFFFFF !important; /* Texto blanco brillante */
@@ -247,6 +250,12 @@ st.markdown("""
             font-weight: 500;
         }
 
+        /* --- *** NUEVA REGLA PARA ETIQUETAS DE WIDGETS *** --- */
+        [data-testid="stWidgetLabel"] > label {
+            color: #111 !important; /* Forzar color oscuro (casi negro) */
+            font-weight: 500 !important; /* Forzar peso de fuente */
+        }
+
         /* --- Métricas (KPIs) --- */
         [data-testid="stMetric"] {
             background-color: #FFFFFF;
@@ -258,7 +267,7 @@ st.markdown("""
         [data-testid="stMetricValue"] {
             font-size: 2.75rem !important;
             font-weight: 700;
-            color: #00AAB2; 
+            color: #00AAB2; /* <-- NUEVO COLOR DE ACENTO */
         }
         [data-testid="stMetricLabel"] {
             font-size: 1rem;
@@ -280,7 +289,7 @@ st.markdown("""
 
         /* --- Botones --- */
         button[kind="primary"] {
-            background-color: #00AAB2 !important; 
+            background-color: #00AAB2 !important; /* <-- NUEVO COLOR DE ACENTO */
             color: white !important;
             border: 0 !important;
             border-radius: 8px !important;
@@ -308,24 +317,6 @@ st.markdown("""
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        /* --- (NUEVO) Etiquetas de Inputs --- */
-        [data-testid="stWidgetLabel"] > label {
-            color: #003366 !important; /* Azul marino oscuro */
-            font-weight: 500 !important;
-            font-size: 0.95rem !important;
-            padding-bottom: 4px !important; /* Pequeño espacio */
-        }
-        
-        /* --- (NUEVO) Cajas de Inputs --- */
-        [data-testid="stTextInput"] div[data-baseweb="input"],
-        [data-testid="stSelectbox"] div[data-baseweb="select"],
-        [data-testid="stNumberInput"] div[data-baseweb="input"],
-        [data-testid="stDateInput"] div[data-baseweb="input"] {
-            background-color: #FFFFFF !important;
-            border-radius: 6px !important;
-            border: 1px solid #BCCCDC !important; /* Borde sutil azul-gris */
-        }
-        
         /* --- Footer --- */
         .footer {
             font-size: 0.8rem;
@@ -492,7 +483,7 @@ elif opcion == "✈️ Gestión de Vuelos":
                     st.experimental_rerun()
 
 # ------------------------------------------------------------
-# SECCIÓN: GESTIÓN DE PASAJEROS
+# SECCIÓN: GESTIÓN DE PASAJEROS (CON LÓGICA FUZZY)
 # ------------------------------------------------------------
 elif opcion == "👤 Gestión de Pasajeros":
     st.title("👤 Gestión de Pasajeros")
